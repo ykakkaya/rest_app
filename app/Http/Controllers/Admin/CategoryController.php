@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -12,7 +13,8 @@ class CategoryController extends Controller
      * Display a listing of the resource.
      */
     public function index(){
-        return view('admin.category.index');
+        $categories=Category::all();
+        return view('admin.category.index',compact('categories'));
     }
 
     /**
@@ -29,15 +31,16 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
 
-        // dd($request->all());
-        // $request->validate([
-        //     'name' =>'required',
-        //     'description' =>'required|mimes:png,jpg,jpeg,webp',
-        //     'image' =>'required',
-        // ]);
+
+        $request->validate([
+            'name' =>'required',
+            'description' =>'required',
+            'file' =>'mimes:png,jpg,jpeg,webp',
+        ]);
         $image='';
         if($request->hasFile('file')){
-            $image=$request->file('file')->store('public/images');
+            $img = $request->file('file');
+            $image=$img->store('public/images');
         };
         Category::create([
             'name' => $request->name,
@@ -65,7 +68,9 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
+        $category=Category::find($id);
+        return view('admin.category.edit',compact('category'));
     }
 
     /**
@@ -73,7 +78,23 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $category=Category::find($id);
+        $image=$category->image;
+        if($request->hasFile('file')){
+            $img = $request->file('file');
+            Storage::delete($image);
+            $image=$img->store('public/images');
+        };
+        $category->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'image'=>$image,
+        ]);
+        $notification = array(
+           'message' => 'Kategori Başarıyla Güncellendi',
+            'alert-type' =>'success'
+        );
+        return redirect()->route('admin.category')->with($notification);
     }
 
     /**

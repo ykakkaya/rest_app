@@ -20,32 +20,19 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>Trident</td>
-              <td>Internet
-                Explorer 4.0
-              </td>
-              <td>Win 95+</td>
-              <td> 4</td>
-              <td>X</td>
-            </tr>
-            <tr>
-              <td>Trident</td>
-              <td>Internet
-                Explorer 5.0
-              </td>
-              <td>Win 95+</td>
-              <td>5</td>
-              <td>C</td>
-            </tr>
+                @foreach ($categories as $key=> $item )
+
 
             <tr>
-              <td>Other browsers</td>
-              <td>All others</td>
-              <td>-</td>
-              <td>-</td>
-              <td>U</td>
+              <td>{{{$key+1}}}</td>
+              <td>{{$item->name}}</td>
+
+              <td>{{$item->description}}</td>
+              <td> <img src="{{Storage::url($item->image)}}" style="width: 80px"></td>
+              <td><a href="{{route('admin.category.edit',$item->id)}}" class="btn btn-warning">Düzenle</a> &nbsp;
+                <a href="{{route('admin.category.destroy',$item->id)}}" class="btn btn-danger">Sil</a></td>
             </tr>
+ @endforeach
             </tbody>
 
           </table>
