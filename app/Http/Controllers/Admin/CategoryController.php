@@ -4,15 +4,15 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
+    public function index(){
+        return view('admin.category.index');
     }
 
     /**
@@ -20,7 +20,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.category.create');
     }
 
     /**
@@ -28,7 +28,28 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        // dd($request->all());
+        // $request->validate([
+        //     'name' =>'required',
+        //     'description' =>'required|mimes:png,jpg,jpeg,webp',
+        //     'image' =>'required',
+        // ]);
+        $image='';
+        if($request->hasFile('file')){
+            $image=$request->file('file')->store('public/images');
+        };
+        Category::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'image' => $image,
+        ]);
+        $notification = array(
+           'message' => 'Kategori Başarıyla Eklendi',
+            'alert-type' =>'success'
+        );
+        return redirect()->route('admin.category')->with($notification);
+
     }
 
     /**

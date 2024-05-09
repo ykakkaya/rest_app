@@ -2,7 +2,10 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\TableController;
+use App\Http\Controllers\Admin\ReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +33,14 @@ Route::middleware('auth')->group(function () {
 
     //Admin Panel Routes
     Route::middleware('admin')->prefix('admin')->group(function () {
-        Route::get('/index', [AdminController::class, 'index'])->name('admin.index');
+        Route::get('/index', [CategoryController::class, 'index'])->name('admin.category');
+        Route::get('/category/create', [CategoryController::class, 'create'])->name('admin.category.create');
+        Route::post('/category/store', [CategoryController::class, 'store'])->name('admin.category.store');
+        Route::get('/menu', [MenuController::class, 'index'])->name('admin.menu');
+        Route::get('/table', [TableController::class, 'index'])->name('admin.table');
+        Route::get('/reservation', [ReservationController::class, 'index'])->name('admin.reservation');
+
+
     });
 
 });
