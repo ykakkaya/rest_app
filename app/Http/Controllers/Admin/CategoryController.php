@@ -36,6 +36,10 @@ class CategoryController extends Controller
             'name' =>'required',
             'description' =>'required',
             'file' =>'mimes:png,jpg,jpeg,webp',
+        ],[
+            'name.required' => 'Kategori İsmi Giriniz',
+            'description.required' => 'Kategori Açıklaması Giriniz',
+            'file.mimes' => 'Sadece png,jpg,jpeg,webp uzantılı resimler yükleyebilirsiniz',
         ]);
         $image='';
         if($request->hasFile('file')){
@@ -89,6 +93,10 @@ class CategoryController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'image'=>$image,
+        ],[
+            'name.required' => 'Kategori İsmi Giriniz',
+            'description.required' => 'Kategori Açıklaması Giriniz',
+            'file.mimes' => 'Sadece png,jpg,jpeg,webp uzantılı resimler yükleyebilirsiniz',
         ]);
         $notification = array(
            'message' => 'Kategori Başarıyla Güncellendi',
