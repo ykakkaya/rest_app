@@ -30,7 +30,7 @@
               <td>{{$item->description}}</td>
               <td> <img src="{{Storage::url($item->image)}}" style="width: 80px"></td>
               <td><a href="{{route('admin.category.edit',$item->id)}}" class="btn btn-warning">Düzenle</a> &nbsp;
-                <a href="{{route('admin.category.destroy',$item->id)}}" class="btn btn-danger">Sil</a></td>
+                <a href="{{route('admin.category.destroy',$item->id)}}" id="delete" class="btn btn-danger">Sil</a></td>
             </tr>
  @endforeach
             </tbody>

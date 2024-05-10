@@ -102,6 +102,10 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category=Category::find($id);
+        Storage::delete($category->image);
+        $category->delete();
+
+        return redirect()->route('admin.category');
     }
 }
