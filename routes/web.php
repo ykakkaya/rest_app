@@ -33,14 +33,23 @@ Route::middleware('auth')->group(function () {
 
     //Admin Panel Routes
     Route::middleware('admin')->prefix('admin')->group(function () {
+        //category routes
         Route::get('/index', [CategoryController::class, 'index'])->name('admin.category');
         Route::get('/category/create', [CategoryController::class, 'create'])->name('admin.category.create');
         Route::post('/category/store', [CategoryController::class, 'store'])->name('admin.category.store');
         Route::get('/category/edit/{id}', [CategoryController::class, 'edit'])->name('admin.category.edit');
         Route::post('/category/update/{id}', [CategoryController::class, 'update'])->name('admin.category.update');
+        //menu routes
         Route::get('/category/destroy/{id}', [CategoryController::class, 'destroy'])->name('admin.category.destroy');
         Route::get('/menu', [MenuController::class, 'index'])->name('admin.menu');
+        Route::get('/menu/create', [MenuController::class, 'create'])->name('admin.menu.create');
+        Route::post('/menu/store', [MenuController::class, 'store'])->name('admin.menu.store');
+        Route::get('/menu/edit/{id}', [MenuController::class, 'edit'])->name('admin.menu.edit');
+        Route::post('/menu/update/{id}', [MenuController::class, 'update'])->name('admin.menu.update');
+        Route::get('/menu/destroy/{id}', [MenuController::class, 'destroy'])->name('admin.menu.destroy');
+        //table routes
         Route::get('/table', [TableController::class, 'index'])->name('admin.table');
+        //reservation routes
         Route::get('/reservation', [ReservationController::class, 'index'])->name('admin.reservation');
 
 

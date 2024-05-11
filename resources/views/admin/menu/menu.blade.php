@@ -5,7 +5,7 @@
       <div class="card">
         <div class="card-header">
           <h3 class="card-title">Menu Listesi</h3>
-          <a href="{{route('admin.category.create')}}" class="float-right btn btn-primary" type="button"  href="{{route('admin.category.create')}}">Menu Ekle</a>
+          <a href="{{route('admin.menu.create')}}" class="float-right btn btn-primary" type="button"  href="{{route('admin.category.create')}}">Menu Ekle</a>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -13,39 +13,28 @@
             <thead>
             <tr>
               <th></th>
-              <th>Kategori Adı</th>
-              <th>Kategori Açıklama</th>
-              <th>Kategori Resmi</th>
+              <th>Menu Adı</th>
+              <th>Menu Açıklama</th>
+              <th>Menu Resmi</th>
+              <th>Menu Fiyatı</th>
+              <th>Kategori</th>
               <th></th>
             </tr>
             </thead>
             <tbody>
+                @foreach ($menus as $key=> $item )
             <tr>
-              <td>Trident</td>
-              <td>Internet
-                Explorer 4.0
-              </td>
-              <td>Win 95+</td>
-              <td> 4</td>
-              <td>X</td>
+              <td>{{$key+1}}</td>
+              <td>{{$item->name}}</td>
+              <td>{{$item->description}}</td>
+              <td> <img src="{{Storage::url($item->image)}}" width="80"></td>
+              <td>{{$item->price}} tl</td>
+              <td>{{$item->category->name}}</td>
+              <td><a href="{{route('admin.menu.edit',$item->id)}}" class="btn btn-warning">Düzenle</a> &nbsp;
+                <a href="{{route('admin.menu.destroy',$item->id)}}" id="delete" class="btn btn-danger">Sil</a>
+            </td>
             </tr>
-            <tr>
-              <td>Trident</td>
-              <td>Internet
-                Explorer 5.0
-              </td>
-              <td>Win 95+</td>
-              <td>5</td>
-              <td>C</td>
-            </tr>
-
-            <tr>
-              <td>Other browsers</td>
-              <td>All others</td>
-              <td>-</td>
-              <td>-</td>
-              <td>U</td>
-            </tr>
+            @endforeach
             </tbody>
 
           </table>
