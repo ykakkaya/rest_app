@@ -20,7 +20,7 @@ class TableController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.table.create');
     }
 
     /**
@@ -28,7 +28,26 @@ class TableController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' =>'required',
+            'guest_number' =>'required'| 'numeric',
+
+        ],[
+            'name.required' => 'İsim alanı gereklidir',
+            'guest_number.required' => 'Misafir sayısı alanı gereklidir',
+            'guest_number.numeric' => 'Misafir sayısı alanı sayı olmalıdır',
+        ]);
+        Table::create([
+            'name' => $request->name,
+            'guest_number' => $request->guest_number,
+            'status'=>'available',
+            'location' => $request->location,
+        ]);
+        $notification = array(
+           'message' => 'Masa Eklendi',
+            'alert-type' =>'success'
+        );
+        return redirect()->route('admin.table.index')->with($notification);
     }
 
     /**
@@ -44,7 +63,8 @@ class TableController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $table = Table::find($id);
+        return view('admin.table.edit', compact('table'));
     }
 
     /**
@@ -52,7 +72,21 @@ class TableController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $table = Table::find($id);
+       $request->validate([
+            'name' =>'required',
+            'guest_number' =>'required'| 'numeric',]);
+        $table::update([
+            'name' => $request->name,
+            'guest_number' => $request->guest_number,
+            'location' => $request->location,
+            'status' => $request->status,
+        ]);
+        $notification = array(
+           'message' => 'Masa Güncellendi',
+            'alert-type' =>'success'
+        );
+        return redirect()->route('admin.table.index')->with($notification);
     }
 
     /**
@@ -60,6 +94,12 @@ class TableController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $table = Table::find($id);
+        $table->delete();
+        $notification = array(
+           'message' => 'Masa Silindi',
+            'alert-type' => 'error'
+        );
+        return redirect()->route('admin.table.index')->with($notification);
     }
 }
