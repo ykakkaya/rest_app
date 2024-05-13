@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Reservation;
+use App\Models\Table;
 
 class ReservationController extends Controller
 {
@@ -12,8 +14,10 @@ class ReservationController extends Controller
      */
     public function index()
     {
-    return view('admin.reservation.reservation');
+        $reservations = Reservation::all();
+        return view('admin.reservation.reservation', compact('reservations'));
     }
+   
 
     /**
      * Show the form for creating a new resource.

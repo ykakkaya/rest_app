@@ -49,9 +49,18 @@ Route::middleware('auth')->group(function () {
         Route::get('/menu/destroy/{id}', [MenuController::class, 'destroy'])->name('admin.menu.destroy');
         //table routes
         Route::get('/table', [TableController::class, 'index'])->name('admin.table');
+        Route::get('/table/create', [TableController::class, 'create'])->name('admin.table.create');
+        Route::post('/table/store', [TableController::class, 'store'])->name('admin.table.store');
+        Route::get('/table/edit/{id}', [TableController::class, 'edit'])->name('admin.table.edit');
+        Route::post('/table/update/{id}', [TableController::class, 'update'])->name('admin.table.update');
+        Route::get('/table/destroy/{id}', [TableController::class, 'destroy'])->name('admin.table.destroy');
         //reservation routes
         Route::get('/reservation', [ReservationController::class, 'index'])->name('admin.reservation');
-
+        Route::get('/reservation/create', [ReservationController::class, 'create'])->name('admin.reservation.create');
+        Route::post('/reservation/store', [ReservationController::class, 'store'])->name('admin.reservation.store');
+        Route::get('/reservation/edit/{id}', [ReservationController::class, 'edit'])->name('admin.reservation.edit');
+        Route::post('/reservation/update/{id}', [ReservationController::class, 'update'])->name('admin.reservation.update');
+        Route::get('/reservation/destroy/{id}', [ReservationController::class, 'destroy'])->name('admin.reservation.destroy');
 
     });
 

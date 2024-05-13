@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Table;
 
 class TableController extends Controller
 {
@@ -12,7 +13,8 @@ class TableController extends Controller
      */
     public function index()
     {
-        return view('admin.table.table');
+        $tables = Table::all();
+        return view('admin.table.table', compact('tables'));
     }
 
     /**
@@ -28,14 +30,15 @@ class TableController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'name' =>'required',
-            'guest_number' =>'required'| 'numeric',
+            'guest_number' =>'required',
 
         ],[
-            'name.required' => 'İsim alanı gereklidir',
-            'guest_number.required' => 'Misafir sayısı alanı gereklidir',
-            'guest_number.numeric' => 'Misafir sayısı alanı sayı olmalıdır',
+            'name.required' => 'Masa İsmi Giriniz',
+            'guest_number.required' => 'Masa Kapasitesi Giriniz',
+
         ]);
         Table::create([
             'name' => $request->name,
@@ -47,7 +50,7 @@ class TableController extends Controller
            'message' => 'Masa Eklendi',
             'alert-type' =>'success'
         );
-        return redirect()->route('admin.table.index')->with($notification);
+        return redirect()->route('admin.table')->with($notification);
     }
 
     /**
@@ -73,10 +76,16 @@ class TableController extends Controller
     public function update(Request $request, string $id)
     {
         $table = Table::find($id);
-       $request->validate([
+        $request->validate([
             'name' =>'required',
-            'guest_number' =>'required'| 'numeric',]);
-        $table::update([
+            'guest_number' =>'required',
+
+        ],[
+            'name.required' => 'Masa İsmi Giriniz',
+            'guest_number.required' => 'Masa Kapasitesi Giriniz',
+
+        ]);
+        $table->update([
             'name' => $request->name,
             'guest_number' => $request->guest_number,
             'location' => $request->location,
@@ -86,7 +95,7 @@ class TableController extends Controller
            'message' => 'Masa Güncellendi',
             'alert-type' =>'success'
         );
-        return redirect()->route('admin.table.index')->with($notification);
+        return redirect()->route('admin.table')->with($notification);
     }
 
     /**

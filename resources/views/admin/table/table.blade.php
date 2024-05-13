@@ -5,7 +5,7 @@
       <div class="card">
         <div class="card-header">
           <h3 class="card-title">Masa Listesi</h3>
-          <a href="{{route('admin.category.create')}}" class="float-right btn btn-primary" type="button"  href="{{route('admin.category.create')}}">Masa Ekle</a>
+          <a href="{{route('admin.table.create')}}" class="float-right btn btn-primary" type="button"  href="{{route('admin.category.create')}}">Masa Ekle</a>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -13,39 +13,43 @@
             <thead>
             <tr>
               <th></th>
-              <th>Kategori Adı</th>
-              <th>Kategori Açıklama</th>
-              <th>Kategori Resmi</th>
+              <th>Masa Adı</th>
+              <th>Masa Kapasitesi</th>
+              <th>Durumu</th>
+              <th>Konumu</th>
               <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>Trident</td>
-              <td>Internet
-                Explorer 4.0
-              </td>
-              <td>Win 95+</td>
-              <td> 4</td>
-              <td>X</td>
-            </tr>
-            <tr>
-              <td>Trident</td>
-              <td>Internet
-                Explorer 5.0
-              </td>
-              <td>Win 95+</td>
-              <td>5</td>
-              <td>C</td>
-            </tr>
+                @foreach ($tables as $key=> $item )
+<tr>
+            <td>{{{$key+1}}}</td>
+              <td>{{$item->name}}</td>
+              <td>{{$item->guest_number}}</td>
 
-            <tr>
-              <td>Other browsers</td>
-              <td>All others</td>
-              <td>-</td>
-              <td>-</td>
-              <td>U</td>
+              <td>
+                @if ($item->status=='available')
+                Boş
+                @elseif($item->status=='unavailable')
+                Dolu
+                @else
+                Rezerve
+                @endif
+              </td>
+              <td>
+                @if ($item->location=='indoor')
+                İçeri
+                @elseif ($item->location=='outdoor')
+                Dışarı
+                @else
+                Pencere Kenarı
+                @endif
+            </td>
+              <td><a href="{{route('admin.table.edit',$item->id)}}" class="btn btn-warning">Düzenle</a> &nbsp;
+                <a href="{{route('admin.table.destroy',$item->id)}}" id="delete" class="btn btn-danger">Sil</a></td>
+
             </tr>
+                @endforeach
             </tbody>
 
           </table>
