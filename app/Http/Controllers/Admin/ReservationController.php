@@ -17,14 +17,15 @@ class ReservationController extends Controller
         $reservations = Reservation::all();
         return view('admin.reservation.reservation', compact('reservations'));
     }
-   
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        //
+        $tables = Table::all();
+        return view('admin.reservation.create', compact('tables'));
     }
 
     /**
@@ -32,7 +33,37 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'first_name' =>'required',
+            'last_name' =>'required',
+            'phone' =>'required',
+            'email' =>'required',
+            'res_date' =>'required',
+            'table_id' =>'required',
+            'guest_number' =>'required',
+        ],[
+            'first_name.required' => 'İsim Alanı Zorunludur',
+            'last_name.required' => 'Soyisim Alanı Zorunludur',
+            'phone.required' => 'Telefon Numarası Zorunludur',
+           'rest_date.required' => 'Reservasyon Tarihi Zorunludur',
+            'guest_number.required' => 'Misafir Sayısı Zorunludur',
+        ]);
+
+        Reservation::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'phone' => $request->phone,
+            'email' => $request->email,
+           'res_date' => $request->res_date,
+            'table_id' => $request->table_id,
+            'guest_number' => $request->guest_number,
+        ]);
+        $notification = array(
+           'message' => 'Rezervasyon Eklendi',
+            'alert-type' =>'success'
+        );
+        return redirect()->route('admin.reservation')->with($notification);
     }
 
     /**
@@ -48,7 +79,8 @@ class ReservationController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $reservation = Reservation::find($id);
+        return view('admin.reservation.edit', compact('reservation'));
     }
 
     /**

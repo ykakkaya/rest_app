@@ -24,20 +24,27 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Trident</td>
-                                <td>Internet</td>
-                                <td>Win 95+</td>
-                                <td>5</td>
-                                <td>C</td>
-                                <td>C</td>
-                                <td>
-                                    <a href="" class="btn btn-warning">Düzenle</a> &nbsp;
-                                    <a href="" id="delete" class="btn btn-danger">Sil</a>
-                                </td>
+
+                            @foreach ($reservations as $key => $item)
+                                <tr>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td>{{ $item->first_name }} {{ $item->last_name }}</td>
+                                    <td>{{ $item->email }}</td>
+                                    <td>{{ $item->phone }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->res_date)->format('d.m.Y H:i') }}</td>
+
+                                    <td>{{ $item->table->name }}</td>
+
+                                    <td>
+                                        <a href="{{route('admin.reservation.edit',$item->id)}}" class="btn btn-warning">Düzenle</a> &nbsp;
+                                        <a href="" id="delete" class="btn btn-danger">Sil</a>
+                                    </td>
+
+                                </tr>
+                            @endforeach
 
 
-                            </tr>
+
                         </tbody>
 
                     </table>
