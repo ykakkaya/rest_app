@@ -30,9 +30,7 @@
               <td>
                 @if ($item->status=='available')
                 Boş
-                @elseif($item->status=='unavailable')
-                Dolu
-                @else
+                @elseif($item->status=='reserved')
                 Rezerve
                 @endif
               </td>

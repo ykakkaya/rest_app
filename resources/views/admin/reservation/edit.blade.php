@@ -41,7 +41,11 @@
     <div class="row">
     <div class="mb-3 col-md-6" >
         <label for="res_date" class="form-label">Rezervasyon Saati</label>
-        <input type="datetime-local" class="form-control @error('res_date') is-invalid @enderror" name="res_date" value="{{ $reservation->res_date}}">
+       <input type="datetime-local" class="form-control @error('res_date') is-invalid @enderror" name="res_date" value="{{ $reservation->res_date}}" >
+
+    @foreach ($errors->get('res_date') as $message )
+    <div class="text-danger">{{ $message }}</div>
+    @endforeach
     </div>
         <div class="mb-3 col-md-6" >
             <label for="description" class="form-label">Misafir Sayısı</label>

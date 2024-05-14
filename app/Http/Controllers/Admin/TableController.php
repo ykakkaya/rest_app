@@ -105,10 +105,11 @@ class TableController extends Controller
     {
         $table = Table::find($id);
         $table->delete();
+        $table->reservations()->delete();
         $notification = array(
            'message' => 'Masa Silindi',
             'alert-type' => 'error'
         );
-        return redirect()->route('admin.table.index')->with($notification);
+        return redirect()->route('admin.table')->with($notification);
     }
 }

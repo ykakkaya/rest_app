@@ -44,8 +44,7 @@
                 name="status">
 
                 <option value="available" {{ $table->status == 'available' ?'selected' : '' }}>Boş</option>
-                <option value="unavailable" {{ $table->status == 'unavailable' ?'selected' : '' }}>Dolu</option>
-                <option value="pending" {{ $table->status == 'pending' ?'selected' : '' }}>Rezerve</option>
+                <option value="pending" {{ $table->status == 'reserved' ?'selected' : '' }}>Rezerve</option>
                 @error('status')
                 <div class="text-danger">{{ $message }}</div>
                 @enderror

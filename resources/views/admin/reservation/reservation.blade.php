@@ -37,7 +37,7 @@
 
                                     <td>
                                         <a href="{{route('admin.reservation.edit',$item->id)}}" class="btn btn-warning">Düzenle</a> &nbsp;
-                                        <a href="" id="delete" class="btn btn-danger">Sil</a>
+                                        <a href="{{route('admin.reservation.destroy',$item->id)}}" id="delete" class="btn btn-danger">Sil</a>
                                     </td>
 
                                 </tr>
