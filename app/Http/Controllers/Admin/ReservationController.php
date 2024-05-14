@@ -80,7 +80,8 @@ class ReservationController extends Controller
     public function edit(string $id)
     {
         $reservation = Reservation::find($id);
-        return view('admin.reservation.edit', compact('reservation'));
+        $tables=Table::all();
+        return view('admin.reservation.edit', compact(['reservation','tables']));
     }
 
     /**
@@ -88,7 +89,35 @@ class ReservationController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $reservation = Reservation::find($id);
+        // $request->validate([
+        //     'first_name' =>'required',
+        //     'last_name' =>'required',
+        //     'phone' =>'required',
+        //     'email' =>'required',
+        //     'res_date' =>'required',
+        //     'table_id' =>'required',
+        //     'guest_number' =>'required',
+        // ],[
+        //     'first_name.required' => 'İsim Alanı Zorunludur',
+        //     'last_name.required' => 'Soyisim Alanı Zorunludur',
+        //     'phone.required' => 'Telefon Numarası Zorunludur',
+        //    'rest_date.required' => 'Reservasyon Tarihi Zorunludur',
+        // ]);
+       $reservation->update([
+        'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'phone' => $request->phone,
+            'email' => $request->email,
+           'res_date' => $request->res_date,
+            'table_id' => $request->table_id,
+            'guest_number' => $request->guest_number,
+       ]);
+       $notification = array(
+           'message' => 'Rezervasyon Güncellendi',
+            'alert-type' =>'success'
+        );
+        return redirect()->route('admin.reservation')->with($notification);
     }
 
     /**

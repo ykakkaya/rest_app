@@ -3,10 +3,10 @@
 <form method="POST" action="{{route('admin.category.store')}}" enctype="multipart/form-data">
     @csrf
     <div class="mb-3">
-      <label for="name" class="form-label @error('name') is-invalid @enderror">Kategori Adı</label>
-      <input type="text" class="form-control" name="name">
+      <label for="name" class="form-label">Kategori Adı</label>
+      <input type="text" class="form-control  @error('name') is-invalid @enderror" name="name">
       @error('name')
-      <span class="alert alert-danger">{{ $message }}</span>
+      <div class="text-danger">{{ $message }}</div>
       @enderror
 
     </div>
@@ -14,7 +14,7 @@
       <label for="description" class="form-label">Açıklama</label>
       <textarea name="description" class="form-control @error('description') is-invalid @enderror"></textarea>
      @error('description')
-     <span class="alert alert-danger">{{ $message }}</span>
+     <div class="text-danger">{{ $message }}</div>
      @enderror
     </div>
     <div class="row">
@@ -22,7 +22,7 @@
             <label for="file" class="form-label">Kategori Resmi</label>
             <input type="file" class="form-control @error('file') is-invalid @enderror" name="file" id="file">
             @error('file')
-            <span class="alert alert-danger">{{ $message }}</span>
+            <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
         <div class="mb-3 col-md-6">

@@ -7,7 +7,7 @@
             <label for="first_name" class="form-label ">Adı</label>
             <input type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name">
             @error('first_name')
-                <span class="alert alert-danger">{{ $message }}</span>
+                <div class="text-danger">{{ $message }}</div>
             @enderror
 
         </div>
@@ -15,7 +15,7 @@
             <label for="last_name" class="form-label ">Soyadı</label></label>
             <input type="text" class="form-control @error('last_name') is-invalid @enderror" name="last_name">
             @error('last_name')
-                <span class="alert alert-danger">{{ $message }}</span>
+            <div class="text-danger">{{ $message }}</div>
             @enderror
 
         </div>
@@ -25,7 +25,7 @@
             <label for="email" class="form-label ">E-mail</label></label>
             <input type="email" class="form-control @error('email') is-invalid @enderror" name="email">
             @error('email')
-                <span class="alert alert-danger">{{ $message }}</span>
+            <div class="text-danger">{{ $message }}</div>
             @enderror
 
         </div>
@@ -33,7 +33,7 @@
             <label for="phone" class="form-label ">Telefon</label></label>
             <input type="tel" class="form-control @error('phone') is-invalid @enderror" name="phone">
             @error('phone')
-                <span class="alert alert-danger">{{ $message }}</span>
+            <div class="text-danger">{{ $message }}</div>
             @enderror
 
         </div>
@@ -47,7 +47,7 @@
                 <option value="{{ $table->id }}">{{ $table->name }} ({{$table->guest_number}} Kişilik)</option>
                 @endforeach
                 @error('table_id')
-                <span class="alert alert-danger">{{ $message }}</span>
+                <div class="text-danger">{{ $message }}</div>
                 @enderror
             </select>
         </div>
@@ -65,7 +65,7 @@
                 @endfor
             </select>
             @error('guest_number')
-            <span class="alert alert-danger">{{ $message }}</span>
+            <div class="text-danger">{{ $message }}</div>
             @enderror
         </div>
 

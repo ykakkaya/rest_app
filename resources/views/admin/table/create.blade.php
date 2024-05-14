@@ -3,10 +3,10 @@
     <form method="POST" action="{{ route('admin.table.store') }}">
         @csrf
         <div class="mb-3">
-            <label for="name" class="form-label @error('name') is-invalid @enderror">Masa Adı-Numarası</label>
-            <input type="text" class="form-control" name="name">
+            <label for="name" class="form-label ">Masa Adı-Numarası</label>
+            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name">
             @error('name')
-                <span class="alert alert-danger">{{ $message }}</span>
+            <div class="text-danger">{{ $message }}</div>
             @enderror
 
         </div>
@@ -19,7 +19,7 @@
                     <option value="{{ $i }}">{{ $i }}</option>
                 @endfor
                 @error('guest_number')
-                    <span class="alert alert-danger">{{ $message }}</span>
+                <div class="text-danger">{{ $message }}</div>
                 @enderror
             </select>
         </div>
@@ -35,7 +35,7 @@
 
 
                     @error('location')
-                        <span class="alert alert-danger">{{ $message }}</span>
+                    <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </select>
             </div>

@@ -3,10 +3,10 @@
     <form method="POST" action="{{ route('admin.table.update', $table->id) }}">
         @csrf
         <div class="mb-3">
-            <label for="name" class="form-label @error('name') is-invalid @enderror">Masa Adı-Numarası</label>
-            <input type="text" class="form-control" name="name" value="{{ $table->name }}">
+            <label for="name" class="form-label ">Masa Adı-Numarası</label>
+            <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $table->name }}">
             @error('name')
-                <span class="alert alert-danger">{{ $message }}</span>
+            <div class="text-danger">{{ $message }}</div>
             @enderror
 
         </div>
@@ -19,7 +19,7 @@
                 <option value="{{ $i }}" {{ $i == $table->guest_number ? 'selected' : '' }}>{{ $i }}</option>
                 @endfor
                 @error('guest_number')
-                    <span class="alert alert-danger">{{ $message }}</span>
+                <div class="text-danger">{{ $message }}</div>
                 @enderror
             </select>
         </div>
@@ -32,7 +32,7 @@
                     <option value="outdoor" {{ $table->location == 'outdoor' ?'selected' : '' }}>Dışarı</option>
                     <option value="window" {{ $table->location == 'window' ?'selected' : '' }}>Pencere Kenarı</option>
                     @error('location')
-                        <span class="alert alert-danger">{{ $message }}</span>
+                    <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </select>
             </div>
@@ -47,7 +47,7 @@
                 <option value="unavailable" {{ $table->status == 'unavailable' ?'selected' : '' }}>Dolu</option>
                 <option value="pending" {{ $table->status == 'pending' ?'selected' : '' }}>Rezerve</option>
                 @error('status')
-                    <span class="alert alert-danger">{{ $message }}</span>
+                <div class="text-danger">{{ $message }}</div>
                 @enderror
             </select>
         </div>
