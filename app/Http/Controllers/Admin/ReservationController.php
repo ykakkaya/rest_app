@@ -53,7 +53,15 @@ class ReservationController extends Controller
         ]);
         $table=Table::where('id',$request->table_id)->first();
         if ($request->guest_number <= $table->guest_number) {
-
+            foreach ($table->reservations as $reservation) {
+                if ($reservation->res_date == $request->res_date) {
+                    $notification = array(
+                    'message' => 'Bu Tarihde Masa Kullanılıyor',
+                     'alert-type' => 'error'
+                    );
+                    return back()->with($notification);
+                }
+            }
             Reservation::create([
                 'first_name' => $request->first_name,
                 'last_name' => $request->last_name,
@@ -78,7 +86,7 @@ class ReservationController extends Controller
                 'alert-type' => 'error'
             );
         }
-        return redirect()->route('admin.reservation')->with($notification);
+        return back()->with($notification);
     }
     /**
      * Display the specified resource.
@@ -94,7 +102,7 @@ class ReservationController extends Controller
     public function edit(string $id)
     {
         $reservation = Reservation::find($id);
-        $tables = Table::where('status','available')->get();
+        $tables = Table::get();
         return view('admin.reservation.edit', compact(['reservation','tables']));
     }
 
@@ -123,6 +131,15 @@ class ReservationController extends Controller
         ]);
         $table=Table::where('id',$request->table_id)->first();
         if ($request->guest_number <= $table->guest_number) {
+            foreach ($table->reservations as $reservation) {
+                if ($reservation->res_date == $request->res_date) {
+                    $notification = array(
+                    'message' => 'Bu Tarihde Masa Kullanılıyor',
+                     'alert-type' => 'error'
+                    );
+                    return back()->with($notification);
+                }
+            }
             $reservation->update([
                 'first_name' => $request->first_name,
                     'last_name' => $request->last_name,
@@ -136,14 +153,17 @@ class ReservationController extends Controller
                    'message' => 'Rezervasyon Güncellendi',
                     'alert-type' =>'success'
                 );
+                return resirect()->route('admin.reservation')->with($notification);
         }else{
             $notification = array(
                'message' => 'Masa Kapasitesi Yeterli Değil',
                 'alert-type' => 'error'
             );
+            return back()->with($notification);
+
         }
 
-        return redirect()->route('admin.reservation')->with($notification);
+
     }
 
     /**
